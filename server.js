@@ -33,8 +33,11 @@ const apiLimited = rateLimit({
 app.use(express.json);
 
 //Importing Routes
+const authRoutes = require("./routes/authRoutes");
 
 //Routes/API calls
+app.use("/api/", apiLimited);
+app.use("/api/auth", authRoutes);
 
 //Port & starting of server
 const port = process.env.port || 8080;
