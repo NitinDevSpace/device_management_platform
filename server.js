@@ -30,7 +30,7 @@ const apiLimited = rateLimit({
 });
 
 //Makes data Available in req.body
-app.use(express.json);
+app.use(express.json());
 
 //Importing Routes
 const authRoutes = require("./routes/authRoutes");
@@ -40,7 +40,7 @@ app.use("/api/", apiLimited);
 app.use("/api/auth", authRoutes);
 
 //Port & starting of server
-const port = process.env.port || 8080;
+const port = process.env.PORT || 8080;
 app.listen(port, () => {
 	console.log(`Listening on port ${port}`);
 });

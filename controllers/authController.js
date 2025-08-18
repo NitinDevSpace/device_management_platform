@@ -37,9 +37,8 @@ const login = async (req, res) => {
 				message: "User not found, Please Register",
 			});
 		}
-		const saltRounds = 10;
-		const hashedPassword = await bcrypt.hash(req.body.password, saltRounds);
-		const isMatch = await bcrypt.compare(req.body.password, hashedPassword);
+
+		const isMatch = await bcrypt.compare(req.body.password, user.password);
 		if (!isMatch) {
 			return res.send({
 				success: false,
