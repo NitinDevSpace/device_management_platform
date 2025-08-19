@@ -5,7 +5,7 @@ const deviceSchema = new mongoose.Schema(
 	{
 		name: { type: String, required: true },
 		type: { type: String, required: true },
-		status: { type: String, enum: ["active", "inactive"], default: "active" },
+		status: { type: String, enum: ["active", "inactive"], default: "inactive" },
 		last_active_at: { type: Date, default: null },
 		owner_id: {
 			type: mongoose.Schema.Types.ObjectId,
@@ -17,5 +17,4 @@ const deviceSchema = new mongoose.Schema(
 );
 
 //Creating the Model of devices using the deviceSchema
-const Device = mongoose.model("devices", deviceSchema);
-module.exports = Device;
+const Device = (module.exports = mongoose.model("devices", deviceSchema));

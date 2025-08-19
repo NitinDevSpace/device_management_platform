@@ -34,10 +34,29 @@ app.use(express.json());
 
 //Importing Routes
 const authRoutes = require("./routes/authRoutes");
+const deviceRoutes = require("./routes/deviceRoutes");
 
 //Routes/API calls
 app.use("/api/", apiLimited);
 app.use("/api/auth", authRoutes);
+app.use("/api/devices", deviceRoutes);
+
+// Import Device model
+const Device = require("./models/Device");
+
+// Background job to update inactive devices every 30 minutes
+setInterval(async () => {
+	try {
+		const cutoffDate = new Date(Date.now() - 24 * 60 * 60 * 1000);
+		const result = await Device.updateMany(
+			{ last_active_at: { $lt: cutoffDate }, status: "active" },
+			{ $set: { status: "inactive" } }
+		);
+		console.log(`Background job: Updated ${result.modifiedCount} devices to inactive.`);
+	} catch (error) {
+		console.error("Background job error:", error);
+	}
+}, 30 * 60 * 1000);
 
 //Port & starting of server
 const port = process.env.PORT || 8080;
