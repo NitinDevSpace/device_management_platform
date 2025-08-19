@@ -1,6 +1,8 @@
 const express = require("express");
 const app = express();
 const rateLimit = require("express-rate-limit");
+const cookieParser = require("cookie-parser");
+app.use(cookieParser());
 
 //Load env variables
 require("dotenv").config();
@@ -42,7 +44,7 @@ app.use("/api/auth", authRoutes);
 app.use("/api/devices", deviceRoutes);
 
 // Import Device model
-const Device = require("./models/Device");
+const Device = require("./models/deviceModel");
 
 // Background job to update inactive devices every 30 minutes
 setInterval(async () => {

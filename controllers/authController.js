@@ -48,17 +48,24 @@ const login = async (req, res) => {
 		const token = jwt.sign({ userId: user._id }, process.env.JWT_SECRET, {
 			expiresIn: "7d",
 		});
-		
-		res.send({
-			success: true,
-			token: token,
-			user: {
-				id: user._id,
-				name: user.name,
-				email: user.email,
-				role: user.role,
-			},
-		});
+
+		res
+			.cookie("token", token, {
+				httpOnly: true, // prevents JavaScript access
+				secure: process.env.NODE_ENV === "production", // only https in prod
+				sameSite: "strict", // CSRF protection
+				maxAge: 7 * 24 * 60 * 60 * 1000, // 7 days
+			})
+			.send({
+				success: true,
+				token: token,
+				user: {
+					id: user._id,
+					name: user.name,
+					email: user.email,
+					role: user.role,
+				},
+			});
 	} catch (error) {
 		res.status(500).send({ message: error.message });
 	}

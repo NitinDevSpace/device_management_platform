@@ -6,6 +6,10 @@ const {
 	deleteDevice,
 	heartbeatDevice,
 } = require("../controllers/deviceController");
+const authMiddleware = require("../middleware/authMiddleware");
+
+//Protect all routes
+router.use(authMiddleware);
 
 //register a new device
 router.post("/", registerDevice);
