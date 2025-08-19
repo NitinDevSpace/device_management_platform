@@ -65,8 +65,7 @@ npm install
 ### 3. Set Environment Variables
 Create a `.env` file in the root directory with the following variables:
 ```
-PORT=3000
-MONGODB_URI=mongodb://localhost:27017/device_management
+DB_URL= your mongodb URL here
 JWT_SECRET=your_jwt_secret_key
 ```
 
@@ -102,7 +101,7 @@ The server will start on the port specified in `.env` (default 3000).
 - `DELETE /api/devices/:id` - Delete a device.
 
 ### Logs
-- `GET /api/logs` - Retrieve logs with filtering options (date range, device ID).
+- `GET /api/devices/:id/logs` - Retrieve logs with filtering options (date range, device ID).
 - Logs are stored separately to maintain a clear audit trail and to optimize queries related to device activities without cluttering device data.
 
 ## Background Jobs
