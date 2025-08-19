@@ -6,24 +6,38 @@ const {
 	deleteDevice,
 	heartbeatDevice,
 } = require("../controllers/deviceController");
+const {
+	addLogEntry,
+	getLogs,
+	getUsage,
+} = require("../controllers/logController");
 const authMiddleware = require("../middleware/authMiddleware");
 
-//Protect all routes
+// Protect all routes
 router.use(authMiddleware);
 
-//register a new device
+// Add a log entry for a device
+router.post("/:id/logs", addLogEntry);
+
+// Get log entries for a device
+router.get("/:id/logs", getLogs);
+
+// Get usage data for a device
+router.get("/:id/usage", getUsage);
+
+// Update device heartbeat (last_active_at)
+router.post("/:id/heartbeat", heartbeatDevice);
+
+// Register a new device
 router.post("/", registerDevice);
 
-//list devices
+// List all devices
 router.get("/", getDevices);
 
-// Update device Details
+// Update device details
 router.patch("/:id", updateDevice);
 
-//Remove device
+// Remove a device
 router.delete("/:id", deleteDevice);
-
-// update last_active-at
-router.post("/:id/heartbeat", heartbeatDevice);
 
 module.exports = router;
