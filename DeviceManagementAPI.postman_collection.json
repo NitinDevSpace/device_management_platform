@@ -1,0 +1,260 @@
+{
+	"info": {
+		"_postman_id": "a1da7b9e-1f0c-42a5-b1bf-37fa9a0e1da5",
+		"name": "Device Management API",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "46525229",
+		"_collection_link": "https://nitinkumar-1473274.postman.co/workspace/Nitin-Kumar's-Workspace~a589b478-20d3-4828-8e1a-063bb033340d/collection/46525229-a1da7b9e-1f0c-42a5-b1bf-37fa9a0e1da5?action=share&source=collection_link&creator=46525229"
+	},
+	"item": [
+		{
+			"name": "signup",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n  \"name\": \"Alice\",\n  \"email\": \"alice@example.com\",\n  \"password\": \"password123\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{base_url}}/auth/signup",
+					"host": [
+						"{{base_url}}"
+					],
+					"path": [
+						"auth",
+						"signup"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "login",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n  \"email\": \"alice@example.com\",\n  \"password\": \"password123\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{base_url}}/auth/login",
+					"host": [
+						"{{base_url}}"
+					],
+					"path": [
+						"auth",
+						"login"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Register Device",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n  \"name\": \"Living Room Light\",\n  \"type\": \"light\",\n  \"status\": \"active\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{base_url}}/devices",
+					"host": [
+						"{{base_url}}"
+					],
+					"path": [
+						"devices"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get Devices",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{base_url}}/devices",
+					"host": [
+						"{{base_url}}"
+					],
+					"path": [
+						"devices"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Update Devices",
+			"request": {
+				"method": "PATCH",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n  \"status\": \"inactive\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{base_url}}/devices/68a4c8bb96702780831957b8",
+					"host": [
+						"{{base_url}}"
+					],
+					"path": [
+						"devices",
+						"68a4c8bb96702780831957b8"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Delete Device",
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "{{base_url}}/devices/68a4c8bb96702780831957b8",
+					"host": [
+						"{{base_url}}"
+					],
+					"path": [
+						"devices",
+						"68a4c8bb96702780831957b8"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Add Log",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n  \"event\": \"units_consumed\",\n  \"value\": 5\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{base_url}}/devices/68a4c90d96702780831957bb/logs",
+					"host": [
+						"{{base_url}}"
+					],
+					"path": [
+						"devices",
+						"68a4c90d96702780831957bb",
+						"logs"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get Logs",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{base_url}}/devices/68a4c90d96702780831957bb/logs?limit=10",
+					"host": [
+						"{{base_url}}"
+					],
+					"path": [
+						"devices",
+						"68a4c90d96702780831957bb",
+						"logs"
+					],
+					"query": [
+						{
+							"key": "limit",
+							"value": "10"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get Usage",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{base_url}}/devices/68a4c90d96702780831957bb/usage?range=24h",
+					"host": [
+						"{{base_url}}"
+					],
+					"path": [
+						"devices",
+						"68a4c90d96702780831957bb",
+						"usage"
+					],
+					"query": [
+						{
+							"key": "range",
+							"value": "24h"
+						}
+					]
+				}
+			},
+			"response": []
+		}
+	],
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"packages": {},
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"packages": {},
+				"exec": [
+					""
+				]
+			}
+		}
+	],
+	"variable": [
+		{
+			"key": "base_url",
+			"value": "http://localhost:8080/api",
+			"type": "string"
+		}
+	]
+}
