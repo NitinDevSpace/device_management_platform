@@ -9,16 +9,18 @@ const Device = require('../models/deviceModel');
  */
 exports.addLogEntry = async (req, res) => {
   try {
-    const { device, event, value } = req.body;
-    const userId = req.user._id;
-    // Check that device belongs to user
-    const deviceObj = await Device.findOne({ _id: device, user: userId });
+    // deviceId should be in req.params.id
+    const deviceId = req.params.id;
+    const { event, value } = req.body;
+    const userId = req.user.userId;
+    // Check that device belongs to user using owner_id
+    const deviceObj = await Device.findOne({ _id: deviceId, owner_id: userId });
     if (!deviceObj) {
       return res.status(403).json({ error: 'Device not found or not owned by user.' });
     }
-    // Create log entry
+    // Create log entry, set device to deviceId
     const log = await Log.create({
-      device,
+      device: deviceId,
       event,
       value,
       timestamp: new Date()
@@ -36,11 +38,11 @@ exports.addLogEntry = async (req, res) => {
  */
 exports.getLogs = async (req, res) => {
   try {
-    const { deviceId } = req.params;
+    const deviceId = req.params.id;
     const limit = parseInt(req.query.limit, 10) || 10;
-    const userId = req.user._id;
-    // Check that device belongs to user
-    const deviceObj = await Device.findOne({ _id: deviceId, user: userId });
+    const userId = req.user.userId;
+    // Check that device belongs to user using owner_id
+    const deviceObj = await Device.findOne({ _id: deviceId, owner_id: userId });
     if (!deviceObj) {
       return res.status(403).json({ error: 'Device not found or not owned by user.' });
     }
@@ -61,10 +63,10 @@ exports.getLogs = async (req, res) => {
  */
 exports.getUsage = async (req, res) => {
   try {
-    const { deviceId } = req.params;
-    const userId = req.user._id;
-    // Check that device belongs to user
-    const deviceObj = await Device.findOne({ _id: deviceId, user: userId });
+    const deviceId = req.params.id;
+    const userId = req.user.userId;
+    // Check that device belongs to user using owner_id
+    const deviceObj = await Device.findOne({ _id: deviceId, owner_id: userId });
     if (!deviceObj) {
       return res.status(403).json({ error: 'Device not found or not owned by user.' });
     }
